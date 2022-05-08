@@ -1,0 +1,110 @@
+with "config/programming_exercises_config.gpr";
+project Programming_Exercises is
+
+   for Source_Dirs use ("src/**");
+   for Object_Dir use "obj";
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("programming_exercises.adb");
+
+   package Naming is
+      for Casing use "MixedCase";
+   end Naming;
+
+   type Enabled_Kind is ("enabled", "disabled");
+   Compile_Checks : Enabled_Kind := External ("PROGRAMMING_EXERCISES_COMPILE_CHECKS", "disabled");
+   Runtime_Checks : Enabled_Kind := External ("PROGRAMMING_EXERCISES_RUNTIME_CHECKS", "disabled");
+   Style_Checks : Enabled_Kind := External ("PROGRAMMING_EXERCISES_STYLE_CHECKS", "disabled");
+   Contracts_Checks : Enabled_Kind := External ("PROGRAMMING_EXERCISES_CONTRACTS", "disabled");
+
+   type Build_Kind is ("debug", "optimize");
+   Build_Mode : Build_Kind := External ("PROGRAMMING_EXERCISES_BUILD_MODE", "optimize");
+
+   Compile_Checks_Switches := (
+                                     "-gnat2020", "-gnatW8", "-gnatf",
+
+                                     "-gnatwa", "-gnatwe", "-gnatw.a", "-gnatw.b", "-gnatwc",
+                                     "-gnatw.c", "-gnatw_c", "-gnatwd", "-gnatw.d", "-gnatwf",
+                                     "-gnatw.f", "-gnatwg", "-gnatw.g", "-gnatwh", "-gnatw.h",
+                                     "-gnatwi","-gnatw.i", "-gnatwj", "-gnatw.j", "-gnatwk",
+                                     "-gnatw.k", "-gnatwl", "-gnatw.l", "-gnatwm","-gnatw.m",
+                                     "-gnatw.n", "-gnatwo", "-gnatw.o", "-gnatwp", "-gnatw.p",
+                                     "-gnatwq", "-gnatw.q", "-gnatwr", "-gnatw.r",
+                                     "-gnatw_r", "-gnatw.s", "-gnatwt", "-gnatw.t", "-gnatwu",
+                                     "-gnatw.u", "-gnatwv", "-gnatw.v", "-gnatww", "-gnatw.w",
+                                     "-gnatwx", "-gnatw.x", "-gnatwy", "-gnatwz", "-gnatw.z", 
+
+                                     "-gnatVa", "-gnatVc", "-gnatVd", "-gnatVe", "-gnatVf",
+                                     "-gnatVi", "-gnatVm", "-gnatVo", "-gnatVp", "-gnatVr",
+                                     "-gnatVs", "-gnatVt"
+                                    );
+
+   case Compile_Checks is
+      when "enabled" =>
+         null;
+
+      when others =>
+         null;
+   end case;
+
+   Runtime_Checks_Switches := (
+                                     "-gnato", "-fstack-check"
+                                    );
+   case Runtime_Checks is
+      when "enabled" =>
+         null;
+
+      when others =>
+         null;
+        -- Runtime_Checks_Switches :=
+        --   ("-gnatp"); -- Suppress checks
+   end case;
+
+   Style_Checks_Switches := (
+                                   "-gnatya", "-gnatyA", "-gnatyC", "-gnatyd", "-gnatye",
+                                   "-gnatyf", "-gnatyh", "-gnatyi", "-gnatyk", "-gnatyl",
+                                   "-gnatyL7", "-gnatyM222", "-gnatyn", "-gnatyO", "-gnatyp",
+                                   "-gnatyr", "-gnatys", "-gnatyS", "-gnatyx"
+                                  );
+   case Style_Checks is
+      when "enabled" =>
+         null;
+
+      when others =>
+         null;
+   end case;
+
+   Contracts_Switches := ();
+   case Contracts_Checks is
+      when "enabled" =>
+         Contracts_Switches :=
+           ("-gnata"); --  Enable assertions and contracts
+      when others => null;
+   end case;
+
+   Build_Switches := ();
+   case Build_Mode is
+      when "optimize" =>
+         Build_Switches := ("-O3",     -- Optimization
+                            "-gnatn"); -- Enable inlining
+      when "debug" =>
+         Build_Switches := ("-g",   -- Debug info
+                            "-Og"); -- No optimization
+   end case;
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        Compile_Checks_Switches &
+        Build_Switches &
+        Runtime_Checks_Switches &
+        Style_Checks_Switches &
+        Contracts_Switches &
+        ("-gnatw.X", -- Disable warnings for No_Exception_Propagation
+         "-gnatQ");  -- Don't quit. Generate ALI and tree files even if illegalities
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+end Programming_Exercises;
