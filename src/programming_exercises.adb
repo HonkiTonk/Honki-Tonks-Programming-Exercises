@@ -4,6 +4,7 @@ with Easy;
 with Normal;
 with Hard;
 
+-- Some random programming Exercises I found on the Internet or came up with myself.
 procedure Programming_Exercises
 is begin
 

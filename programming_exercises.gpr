@@ -1,4 +1,6 @@
 with "config/programming_exercises_config.gpr";
+-- with "../string_checker/string_checker.gpr";
+
 project Programming_Exercises is
 
    for Source_Dirs use ("src/**");
@@ -63,7 +65,7 @@ project Programming_Exercises is
    Style_Checks_Switches := (
                                    "-gnatya", "-gnatyA", "-gnatyC", "-gnatyd", "-gnatye",
                                    "-gnatyf", "-gnatyh", "-gnatyi", "-gnatyk", "-gnatyl",
-                                   "-gnatyL7", "-gnatyM222", "-gnatyn", "-gnatyO", "-gnatyp",
+                                   "-gnatyL8", "-gnatyM222", "-gnatyn", "-gnatyO", "-gnatyp",
                                    "-gnatyr", "-gnatys", "-gnatyS", "-gnatyx"
                                   );
    case Style_Checks is
