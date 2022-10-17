@@ -4,13 +4,13 @@ with Ada.Wide_Wide_Text_IO; use Ada.Wide_Wide_Text_IO;
 with Ada.Wide_Wide_Characters.Handling; use Ada.Wide_Wide_Characters.Handling;
 
 with FindNumbersEasy;
-with A;
+with FizzBuzz;
 
 package body Easy is
 
    procedure Easy
    is begin
-      
+            
       Put_Line ("Press y to show the easy stuff.");
       
       Get_Immediate (Item => UserInput);
@@ -29,7 +29,9 @@ package body Easy is
          
          FindNumbersEasy.OddEven;
          FindNumbersEasy.Sum;
-         A.FizzBuzz;
+         FizzBuzz.FizzBuzzEins;
+         FizzBuzz.FizzBuzzZwei;
+         FizzBuzz.FizzBuzzDrei;
          
          Put_Line ("Press y to show the easy stuff again.");
       
