@@ -1,10 +1,16 @@
 package ChangelogProgrammingExcercises is
-   
-   -- Version 0.00.065:
-   
-   -- Added AdventofCode2021.
+
+   -- Version 0.00.0070:
+      
    -- Changed the license from AGPL3 to GPL3.
    -- Readme reworked.
+   -- Name changed.
+   
+   
+   
+   -- Version 0.00.0060:
+   
+   -- Added AdventofCode2021.
    
    
    
